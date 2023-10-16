@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code ➕ dev Contest Query Form</title>
+    <link rel="shortcut icon" href="https://www.clker.com/cliparts/b/0/3/7/1206576685673534961rygle_Hat_Outline.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="https://icons.veryicon.com/png/o/business/financial-marketing-icon/seo-contest.png" type="image/x-icon">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background: #f2f2f2;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .container {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+        }
+        
+        .container h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #009688;
+        }
+        
+        .contact form {
+            display: grid;
+            grid-gap: 20px;
+        }
+        
+        .contact form label {
+            display: block;
+            font-weight: bold;
+        }
+        
+        .contact form input,
+        .contact form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .contact form button {
+            background: #009688;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        .alert {
+            text-align: center;
+            padding: 10px;
+            background: #79c879;
+            color: #fff;
+            margin: 10px 0;
+            display: none;
+        }
+        /* Responsive styles */
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            .contact form {
+                grid-gap: 10px;
+            }
+            .contact form button {
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="back-home">
+        <a href="file:///C:/Users/Dheeraj%20pyasi/OneDrive/Desktop/contest/index.html#myPage">
+            <button class="btn btn-danger"> Back To home</button>
+
+        </a>
+    </div>
+    <div class="container">
+        <h1>Codedev 24 X 7 Query Form</h1>
+        <div class="contact">
+            <div class="alert">Your message has been sent</div>
+            <form id="contactForm">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" required>
+                <label for="company">Company</label>
+                <input type="text" name="company" id="company" placeholder=" it is not reuired...">
+                <label for="email">Email Address</label>
+                <input type="email" name="email" id="email" required>
+                <label for="phone">Phone Number</label>
+                <input type="text" name="phone" id="phone">
+                <label for="message">Message</label>
+                <textarea name="message" rows="5" id="message"></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyD9rUDex42kF0QKPde4fIB7n8vAKSkqlGI",
+            authDomain: "html-form-2fd7f.firebaseapp.com",
+            databaseURL: "https://html-form-2fd7f-default-rtdb.firebaseio.com",
+            projectId: "html-form-2fd7f",
+            storageBucket: "html-form-2fd7f.appspot.com",
+            messagingSenderId: "969425848665",
+            appId: "1:969425848665:web:f7ffdccf049221ccdee448",
+            measurementId: "G-K6WN88SS38"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+
+        var messagesRef = firebase.database().ref('messages');
+
+
+        document.getElementById('contactForm').addEventListener('submit', submitForm);
+
+
+        function submitForm(e) {
+            e.preventDefault();
+
+
+            var name = getInputVal('name');
+            var company = getInputVal('company');
+            var email = getInputVal('email');
+            var phone = getInputVal('phone');
+            var message = getInputVal('message');
+
+
+            saveMessage(name, company, email, phone, message);
+
+
+            var alert = document.querySelector('.alert');
+            alert.style.display = 'block';
+
+
+            setTimeout(function() {
+                alert.style.display = 'none';
+            }, 3000);
+
+
+            document.getElementById('contactForm').reset();
+        }
+
+
+        function getInputVal(id) {
+            return document.getElementById(id).value;
+        }
+
+
+        function saveMessage(name, company, email, phone, message) {
+            var newMessageRef = messagesRef.push();
+            newMessageRef.set({
+                name: name,
+                company: company,
+                email: email,
+                phone: phone,
+                message: message
+            });
+        }
+    </script>
+</body>
+
+</html>
